@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Activate virtualenv if exist
+source venv/bin/activate 2>/dev/null
+
+# Run script
+python3 ./cookiedoor.py $@
