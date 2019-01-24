@@ -48,7 +48,7 @@ def req(url, command, session):
         try:
             output = result.text.split(delimeter)[1]
             return (decode(output), True)
-        except:
+        except IndexError:
             return (BAD_RESPONSE, True)
     elif result.status_code == 500:
         return (WARNING_500, False)
@@ -59,7 +59,7 @@ def test_connection(url, session):
     delimeter = randomstring(10)
     command = 'echo -n "%s"' % delimeter
     data, status = req(url, command, session)
-    
+
     if data != delimeter:
         print(CANNOT_CONNECT_PAYLOAD)
         return False
