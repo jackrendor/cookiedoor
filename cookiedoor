@@ -1,7 +1,9 @@
 #!/bin/bash
 
+FULLPATH=$(realpath $0)
+SCRIPTPATH=$(dirname $FULLPATH)
 # Activate virtualenv if exist
-source venv/bin/activate 2>/dev/null
+source $SCRIPTPATH/venv/bin/activate 2>/dev/null
 
 # Run script
-python3 ./cookiedoor.py $@
+python3 $SCRIPTPATH/cookiedoor.py $@
